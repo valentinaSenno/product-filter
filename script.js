@@ -69,3 +69,45 @@ for (let i of products.data) {
     container.appendChild(price);
     
 }
+
+function filterProducts(value) {
+    let buttons = document.querySelectorAll(".button-value");
+    buttons.forEach(button => {
+        if (value.toUpperCase() == button.innerText.toUpperCase()) {
+            button.classList.add("active");
+        } else {
+            button.classList.remove("active");
+        }
+    });
+
+    let elements = document.querySelectorAll(".card");
+    elements.forEach(element => {
+        if (value == "all") {
+            element.classList.remove("hide");
+        } else {
+            if (element.classList.contains(value)) {
+                element.classList.remove("hide");
+            } else {
+                element.classList.add("hide");
+            }
+        }
+    });
+}
+
+document.getElementById("search").addEventListener("click", () => {
+    let searchInput = document.getElementById("search-input").value;
+    let elements = document.querySelectorAll(".product-name");
+    let cards = document.querySelectorAll(".card");
+
+    elements.forEach((element, index) => {
+        if (element.innerText.includes(searchInput.toUpperCase())) {
+            cards[index].classList.remove("hide");
+        } else {
+            cards[index].classList.add("hide");
+        }
+    });
+});
+
+window.onload = () => {
+    filterProducts("all");
+};
